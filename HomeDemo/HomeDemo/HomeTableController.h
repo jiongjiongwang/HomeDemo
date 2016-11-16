@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  HomeTableController.h
 //  HomeDemo
 //
 //  Created by dn210 on 16/11/16.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface HomeTableController : UITableViewController
 
 @end
-

@@ -1,30 +1,29 @@
 //
-//  ViewController.m
+//  SecondController.m
 //  HomeDemo
 //
 //  Created by dn210 on 16/11/16.
 //  Copyright © 2016年 dn210. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "SecondController.h"
 
-@interface ViewController ()
+@interface SecondController ()
 
 @end
 
-@implementation ViewController
+@implementation SecondController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
 }
-
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
+
 
 
 @end
