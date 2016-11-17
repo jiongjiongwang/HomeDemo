@@ -146,5 +146,35 @@ static NSString *identify = @"homeTableCell";
     _preDistance = scrollView.contentOffset.y;
 }
 
+//7-设置删除或其他业务
+- (nullable NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    UITableViewRowAction *rowAction1 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+       
+        NSLog(@"点击了删除");
+        
+        
+    }];
+    rowAction1.backgroundColor = [UIColor redColor];
+    
+    
+    UITableViewRowAction *rowAction2 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"更多" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+       
+        NSLog(@"点击了第%ld组第%ld行的内容",indexPath.section,indexPath.row);
+        
+    }];
+    
+    
+    rowAction2.backgroundColor = [UIColor blueColor];
+    
+    return @[rowAction1,rowAction2];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
  
 @end
