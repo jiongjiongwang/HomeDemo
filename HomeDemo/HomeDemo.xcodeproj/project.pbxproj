@@ -10,7 +10,6 @@
 		FE75E9F41DDC21A80019ECE4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE75E9F31DDC21A80019ECE4 /* main.m */; };
 		FE75E9F71DDC21A80019ECE4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FE75E9F61DDC21A80019ECE4 /* AppDelegate.m */; };
 		FE75E9FF1DDC21A80019ECE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE75E9FE1DDC21A80019ECE4 /* Assets.xcassets */; };
-		FE75EA021DDC21A80019ECE4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE75EA001DDC21A80019ECE4 /* LaunchScreen.storyboard */; };
 		FE75EA0D1DDC21A80019ECE4 /* HomeDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FE75EA0C1DDC21A80019ECE4 /* HomeDemoTests.m */; };
 		FE75EA181DDC21A80019ECE4 /* HomeDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FE75EA171DDC21A80019ECE4 /* HomeDemoUITests.m */; };
 		FE75EA411DDC29720019ECE4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE75EA271DDC29720019ECE4 /* Info.plist */; };
@@ -56,7 +55,6 @@
 		FE75E9F51DDC21A80019ECE4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FE75E9F61DDC21A80019ECE4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FE75E9FE1DDC21A80019ECE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		FE75EA011DDC21A80019ECE4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FE75EA031DDC21A80019ECE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE75EA081DDC21A80019ECE4 /* HomeDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE75EA0C1DDC21A80019ECE4 /* HomeDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeDemoTests.m; sourceTree = "<group>"; };
@@ -159,7 +157,6 @@
 				FE75E9F51DDC21A80019ECE4 /* AppDelegate.h */,
 				FE75E9F61DDC21A80019ECE4 /* AppDelegate.m */,
 				FE75E9FE1DDC21A80019ECE4 /* Assets.xcassets */,
-				FE75EA001DDC21A80019ECE4 /* LaunchScreen.storyboard */,
 				FE75EA031DDC21A80019ECE4 /* Info.plist */,
 				FE75E9F21DDC21A80019ECE4 /* Supporting Files */,
 			);
@@ -440,7 +437,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE75EA021DDC21A80019ECE4 /* LaunchScreen.storyboard in Resources */,
 				FE75E9FF1DDC21A80019ECE4 /* Assets.xcassets in Resources */,
 				FE75EA411DDC29720019ECE4 /* Info.plist in Resources */,
 			);
@@ -520,17 +516,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		FE75EA001DDC21A80019ECE4 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FE75EA011DDC21A80019ECE4 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		FE75EA1A1DDC21A80019ECE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -572,7 +557,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -614,7 +599,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -651,6 +636,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = HomeDemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Second.HomeDemoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -663,6 +649,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = HomeDemoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Second.HomeDemoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

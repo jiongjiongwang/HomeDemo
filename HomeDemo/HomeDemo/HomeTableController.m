@@ -19,6 +19,13 @@
 //headView的消失和显示判断
 @property (nonatomic,assign)BOOL headViewDisappear;
 
+//下拉刷新的菊花
+@property (nonatomic,weak)UIActivityIndicatorView *indicatorView;
+
+//下拉刷新的messageLabel
+@property (nonatomic,weak)UILabel *messageLabel;
+
+
 @end
 
 @implementation HomeTableController
@@ -97,6 +104,29 @@ static NSString *identify = @"homeTableCell";
     CGFloat deltaDistance = distance - _preDistance;
     
     NSLog(@"distance = %f",scrollView.contentOffset.y);
+    
+    //下拉刷新时
+    if (distance < -50)
+    {
+
+        [UIView animateWithDuration:0.25 animations:^{
+            
+            //隐藏下拉刷新信息
+            //_messageLabel.hidden = YES;
+            [_messageLabel setText:@"刷新中"];
+            
+            //菊花开始转动
+            [self.indicatorView startAnimating];
+            
+            //整个tableView向下移动50距离
+            scrollView.contentInset = UIEdgeInsetsMake(50, scrollView.contentInset.left, scrollView.contentInset.bottom, scrollView.contentInset.right);
+            
+        } completion:^(BOOL finished) {
+            
+            
+        }];
+    }
+    
     
     if (distance > 50)
     {
@@ -179,12 +209,16 @@ static NSString *identify = @"homeTableCell";
 {
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
     
-    headView.backgroundColor = [UIColor whiteColor];
+    headView.backgroundColor = [UIColor redColor];
     
     self.tableView.tableHeaderView = headView;
     
+    
+    
     //添加一个菊花到headerView上‘
     UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    
+    self.indicatorView = indicatorView;
     
     [headView addSubview:indicatorView];
     
@@ -199,7 +233,26 @@ static NSString *identify = @"homeTableCell";
     
     
     
-    [indicatorView startAnimating];
+    //添加刷新messageLabel
+    UILabel *messageLabel = [[UILabel alloc] init];
+    
+    self.messageLabel = messageLabel;
+
+    messageLabel.text = @"下拉刷新";
+    
+    [messageLabel setTextAlignment:NSTextAlignmentCenter];
+    
+    [messageLabel setFont:[UIFont systemFontOfSize:10]];
+    
+    [headView addSubview:messageLabel];
+    
+    [messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.centerX.equalTo(headView.mas_centerX);
+        
+        make.top.equalTo(indicatorView.mas_bottom).offset(2);
+        
+    }];
     
     
 }
