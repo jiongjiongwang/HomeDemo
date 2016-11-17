@@ -8,6 +8,7 @@
 
 #import "HomeTableController.h"
 #import "HomeTableViewCell.h"
+#import "Masonry.h"
 
 
 @interface HomeTableController ()
@@ -33,12 +34,9 @@ static NSString *identify = @"homeTableCell";
     
     //初始化headViewDisappear
     _headViewDisappear = NO;
+    
 
-    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
-    
-    headView.backgroundColor = [UIColor whiteColor];
-    
-    self.tableView.tableHeaderView = headView;
+    [self setUpHeaderView];
     
     
     [self.tableView registerClass:[HomeTableViewCell class] forCellReuseIdentifier:identify];
@@ -98,7 +96,7 @@ static NSString *identify = @"homeTableCell";
     
     CGFloat deltaDistance = distance - _preDistance;
     
-    //NSLog(@"distance = %f",scrollView.contentOffset.y);
+    NSLog(@"distance = %f",scrollView.contentOffset.y);
     
     if (distance > 50)
     {
@@ -173,6 +171,36 @@ static NSString *identify = @"homeTableCell";
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+}
+
+//自定义tableView的headerView(添加下拉刷新控件)
+-(void)setUpHeaderView
+{
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
+    
+    headView.backgroundColor = [UIColor whiteColor];
+    
+    self.tableView.tableHeaderView = headView;
+    
+    //添加一个菊花到headerView上‘
+    UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    
+    [headView addSubview:indicatorView];
+    
+    
+    [indicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.centerX.equalTo(headView.mas_centerX);
+        
+        make.centerY.equalTo(headView.mas_centerY);
+        
+    }];
+    
+    
+    
+    [indicatorView startAnimating];
+    
     
 }
 
