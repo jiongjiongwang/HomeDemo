@@ -12,7 +12,15 @@
 
 @interface HomeViewCell()
 
+//上面悬浮的headView
 @property (nonatomic,weak)UIView *headView;
+
+//已购按钮
+@property (nonatomic,weak)UIButton *hasBuyButton;
+
+//创作按钮
+@property (nonatomic,weak)UIButton *createButton;
+
 
 @end
 
@@ -25,6 +33,7 @@
     if (self = [super initWithFrame:frame])
     {
         [self setUpUI];
+        
     }
     return self;
 }
@@ -34,19 +43,6 @@
 {
     self.contentView.backgroundColor = [UIColor blackColor];
     
-    //1-先加载一个View在tableview头部
-    UIView *headView = [[UIView alloc] init];
-    
-    self.headView = headView;
-    
-    headView.backgroundColor = [UIColor whiteColor];
-    
-    [self.contentView addSubview:headView];
-    
-    
-    
-    
-    
     
     //2-加载一个tableView到cell中
     HomeTableController *tableVC = [[HomeTableController alloc] init];
@@ -55,6 +51,76 @@
     
     
     [self.contentView addSubview:tableVC.view];
+    
+    
+    
+    
+    //1-先加载一个View在tableview头部
+    UIView *headView = [[UIView alloc] init];
+    
+    self.headView = headView;
+    
+    headView.backgroundColor = [UIColor lightGrayColor];
+    
+    headView.alpha = 1;
+    
+    [self.contentView addSubview:headView];
+    
+    //1.2-加载已购按钮在headView上
+    UIButton *hasBuyButton = [[UIButton alloc] init];
+    
+    self.hasBuyButton = hasBuyButton;
+    
+    [hasBuyButton setTitle:@"已购" forState:UIControlStateNormal];
+    
+    [hasBuyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    [hasBuyButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
+    
+    hasBuyButton.backgroundColor = [UIColor blueColor];
+    
+    
+    [headView addSubview:hasBuyButton];
+    
+    [hasBuyButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerY.equalTo(headView.mas_centerY);
+        
+        make.leading.equalTo(headView.mas_leading).offset(50);
+        
+        
+    }];
+    
+    
+    //1-3-加载创作按钮到headView上
+    UIButton *createButton = [[UIButton alloc] init];
+    
+    self.createButton = createButton;
+    
+    [createButton setTitle:@"创作" forState:UIControlStateNormal];
+    
+    [createButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    [createButton.titleLabel setFont:[UIFont systemFontOfSize:13]];
+    
+    createButton.backgroundColor = [UIColor redColor];
+    
+    
+    [headView addSubview:createButton];
+    
+    [createButton mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.centerY.equalTo(headView.mas_centerY);
+        
+        make.trailing.equalTo(headView.mas_trailing).offset(-50);
+        
+    }];
+    
+    
+    //headView接受外来的通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(headViewChangeAlpha:) name:@"headViewChange" object:nil];
+    
+    
 }
 
 //布局子界面，设置嵌入的tableView的大小
@@ -62,19 +128,10 @@
 {
     [super layoutSubviews];
     
-
-    [_headView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(self.contentView.mas_top).offset(0.5);
-        
-        make.leading.trailing.equalTo(self.contentView);
-        
-        make.height.equalTo(@40);
-    }];
     
     [self.tableVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.top.equalTo(_headView.mas_bottom).offset(0.5);
+        
+        make.top.equalTo(self.contentView.mas_top).offset(0.4);
         
         make.leading.trailing.equalTo(self.contentView);
         
@@ -82,12 +139,62 @@
     }];
     
     
+    [_headView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.contentView.mas_top).offset(0.4);
+        
+        make.leading.trailing.equalTo(self.contentView);
+        
+        make.height.equalTo(@50);
+    }];
+    
+    
+    
     
     
     //self.tableVC.view.frame = self.bounds;
 }
 
+-(void)headViewChangeAlpha:(NSNotification *)notification
+{
+    //取值
+    NSUInteger isHeadAppear = [notification.userInfo[@"disAppear"] integerValue];
+    
+    //消失
+    if (isHeadAppear == 1)
+    {
+        NSLog(@"headView消失");
+        
+        [UIView animateWithDuration:0.4 animations:^{
+           
+            //headView消失
+            self.headView.transform = CGAffineTransformMakeTranslation(0, -50);
+            
+        } completion:^(BOOL finished) {
+            
+            
+        }];
+    }
+    //显示
+    else
+    {
+        NSLog(@"headView显示");
+        
+        [UIView animateWithDuration:0.4 animations:^{
+            
+            self.headView.transform = CGAffineTransformIdentity;
 
+            
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
+    
+}
 
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 
 @end

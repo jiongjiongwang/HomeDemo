@@ -11,6 +11,11 @@
 
 @interface HomeTableViewCell()
 
+//1-图片
+@property (nonatomic,weak)UIImageView *cellImage;
+
+//2-标签
+@property (nonatomic,weak)UILabel *cellLabel;
 
 
 @end
@@ -44,7 +49,32 @@
     }];
     
     
+    //2-label
+    UILabel *cellLabel = [[UILabel alloc] init];
     
+    self.cellLabel = cellLabel;
+    
+    [cellLabel setTextAlignment:NSTextAlignmentCenter];
+    
+    [cellLabel setFont:[UIFont systemFontOfSize:15]];
+    
+    [self.contentView addSubview:cellLabel];
+    
+    [cellLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+       
+        make.centerY.equalTo(self.contentView.mas_centerY);
+        
+        make.leading.equalTo(cellImage.mas_trailing).offset(20);
+        
+    }];
+    
+}
+
+-(void)setCellNum:(NSUInteger)cellNum
+{
+    _cellNum = cellNum;
+    
+    self.cellLabel.text = [NSString stringWithFormat:@"音乐%ld",cellNum];
 }
 
 
