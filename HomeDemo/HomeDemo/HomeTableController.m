@@ -103,28 +103,15 @@ static NSString *identify = @"homeTableCell";
     
     CGFloat deltaDistance = distance - _preDistance;
     
-    NSLog(@"distance = %f",scrollView.contentOffset.y);
+    //NSLog(@"distance = %f",scrollView.contentOffset.y);
     
-    //下拉刷新时
-    if (distance < -50)
+    if (distance < -50 && scrollView.dragging == YES)
     {
-
-        [UIView animateWithDuration:0.25 animations:^{
-            
-            //隐藏下拉刷新信息
-            //_messageLabel.hidden = YES;
-            [_messageLabel setText:@"刷新中"];
-            
-            //菊花开始转动
-            [self.indicatorView startAnimating];
-            
-            //整个tableView向下移动50距离
-            scrollView.contentInset = UIEdgeInsetsMake(50, scrollView.contentInset.left, scrollView.contentInset.bottom, scrollView.contentInset.right);
-            
-        } completion:^(BOOL finished) {
-            
-            
-        }];
+        [_messageLabel setText:@"松开手刷新"];
+    }
+    else if (distance >= -50 && distance <0 && scrollView.dragging == YES)
+    {
+        [_messageLabel setText:@"下拉刷新"];
     }
     
     
@@ -172,6 +159,49 @@ static NSString *identify = @"homeTableCell";
     
     //更新preDistance
     _preDistance = scrollView.contentOffset.y;
+}
+
+
+//下拉拖拽结束时
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    //下拉拖拽小于-50时
+    CGFloat distance = scrollView.contentOffset.y;
+
+    if (distance < -50)
+    {
+        
+        [UIView animateWithDuration:2 animations:^{
+            
+            //隐藏下拉刷新信息
+            [_messageLabel setText:@"刷新中"];
+            
+            //菊花开始转动
+            [self.indicatorView startAnimating];
+            
+            //整个tableView向下移动50距离
+            scrollView.contentInset = UIEdgeInsetsMake(50, scrollView.contentInset.left, scrollView.contentInset.bottom, scrollView.contentInset.right);
+            
+        } completion:^(BOOL finished) {
+            
+            [_messageLabel setText:@"刷新出10条数据"];
+            
+            //菊花停止转动
+            [self.indicatorView stopAnimating];
+            
+            [UIView animateWithDuration:1.5 animations:^{
+                
+                //整个tableView返回原来的位置
+                scrollView.contentInset = UIEdgeInsetsMake(0, scrollView.contentInset.left, scrollView.contentInset.bottom, scrollView.contentInset.right);
+                
+            } completion:^(BOOL finished) {
+               
+                [_messageLabel setText:@"下拉刷新"];
+            }];
+            
+        }];
+    }
+
 }
 
 //7-设置删除或其他业务
