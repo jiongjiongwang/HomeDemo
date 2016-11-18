@@ -242,7 +242,7 @@ static NSString *collectionIdentifier = @"collectCell";
 //2-item
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 1;
+    return 2;
 }
 
 //3-item内容

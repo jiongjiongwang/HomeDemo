@@ -11,7 +11,7 @@
 @interface HomeTableViewCell : UITableViewCell
 
 //从外界获取label的标识
-@property (nonatomic,assign)NSUInteger cellNum;
+@property (nonatomic,copy)NSString *labelStr;
 
 
 @end

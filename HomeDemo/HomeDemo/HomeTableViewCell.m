@@ -70,11 +70,11 @@
     
 }
 
--(void)setCellNum:(NSUInteger)cellNum
+-(void)setLabelStr:(NSString *)labelStr
 {
-    _cellNum = cellNum;
+    _labelStr = labelStr;
     
-    self.cellLabel.text = [NSString stringWithFormat:@"音乐%ld",cellNum];
+    self.cellLabel.text = labelStr;
 }
 
 

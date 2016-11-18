@@ -9,7 +9,8 @@
 #import "HomeTableController.h"
 #import "HomeTableViewCell.h"
 #import "Masonry.h"
-
+//屏幕的长度(固定值)
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
 
 @interface HomeTableController ()
 
@@ -30,11 +31,35 @@
 //上拉刷新的message
 @property (nonatomic,weak)UILabel *footMessageLabel;
 
+//加载数据的数组
+@property (nonatomic,strong)NSMutableArray<NSString *> *mDataArray;
+
+
 @end
 
 @implementation HomeTableController
 
 static NSString *identify = @"homeTableCell";
+
+-(NSMutableArray<NSString *> *)mDataArray
+{
+    if (_mDataArray == nil)
+    {
+        _mDataArray = [NSMutableArray array];
+        
+        for (NSUInteger i = 0; i < 20; i++)
+        {
+            NSString *str = [NSString stringWithFormat:@"音乐%ld",i+1];
+            
+            [_mDataArray addObject:str];
+                             
+        }
+        
+    }
+    
+    return _mDataArray;
+}
+
 
 - (void)viewDidLoad
 {
@@ -70,7 +95,7 @@ static NSString *identify = @"homeTableCell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return 20;
+    return self.mDataArray.count;
 }
 
 //3-行内容
@@ -78,8 +103,9 @@ static NSString *identify = @"homeTableCell";
 {
     HomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify forIndexPath:indexPath];
     
-    cell.cellNum = indexPath.row + 1;
+    NSString *str = self.mDataArray[indexPath.row];
     
+    cell.labelStr = str;
     
     return cell;
 }
@@ -96,7 +122,6 @@ static NSString *identify = @"homeTableCell";
     
     CGFloat deltaDistance = distance - _preDistance;
     
-    //NSLog(@"distance = %f",scrollView.contentOffset.y);
     
     if (distance < -50 && scrollView.dragging == YES)
     {
@@ -107,7 +132,7 @@ static NSString *identify = @"homeTableCell";
         [_messageLabel setText:@"下拉刷新"];
     }
     
-    
+
     if (distance > 50)
     {
         
@@ -159,8 +184,8 @@ static NSString *identify = @"homeTableCell";
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     CGFloat distance = scrollView.contentOffset.y;
-
-    //NSLog(@"distance = %f",distance);
+    
+    NSUInteger dataCount = self.mDataArray.count;
     
     //下拉拖拽结束时
     if (distance < -50)
@@ -199,28 +224,16 @@ static NSString *identify = @"homeTableCell";
     
     //上拉拖拽时
     CGFloat contentHeight = scrollView.contentSize.height;
-    
-    //NSLog(@"contentHeight = %f",contentHeight);
-    
-    //CGFloat contentInsetTop = scrollView.contentInset.bottom;
-    
-    //NSLog(@"contentInsetTop = %f",contentInsetTop);
-    
-    //得出屏幕的长度(固定值)
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    
-    NSLog(@"%f",distance + screenHeight - 49 - 80 + 49);
     //49是tabBar的高度(通过获取得到)
     //NSLog(@"tabBar的高度=%f",[UITabBar appearance].bounds.size.height);
-    
     //80是navigation的高度(自定义)
-    //50是headView的高度
-    if (distance + screenHeight - 49 - 80 + 49 > contentHeight + 25)
+    //49是footView的高度
+    if (distance + kScreenHeight - 49 - 80 + 49 > contentHeight + 49)
     {
         //NSLog(@"上拉刷新中");
         
-        
-        [UIView animateWithDuration:2 animations:^{
+    
+        [UIView animateWithDuration:1 animations:^{
             
             _footMessageLabel.hidden = NO;
             
@@ -245,9 +258,23 @@ static NSString *identify = @"homeTableCell";
                 
             } completion:^(BOOL finished) {
                 
+                
+                //添加新的数据
+                for (NSUInteger i = dataCount; i < dataCount + 5; i++)
+                {
+                    NSString *str = [NSString stringWithFormat:@"音乐%ld",i+1];
+                    
+                    [self.mDataArray addObject:str];
+                }
+                
+                //刷新数据
+                [self.tableView reloadData];
+                
+                
             }];
             
         }];
+        
         
     }
     
