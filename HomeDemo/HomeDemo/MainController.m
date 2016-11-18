@@ -22,6 +22,9 @@
 {
     [super viewDidLoad];
     
+    
+    
+    
     //设置背景颜色
     self.view.backgroundColor = [UIColor whiteColor];
     

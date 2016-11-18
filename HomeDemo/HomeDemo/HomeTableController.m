@@ -25,6 +25,10 @@
 //下拉刷新的messageLabel
 @property (nonatomic,weak)UILabel *messageLabel;
 
+//上拉刷新的菊花
+@property (nonatomic,weak)UIActivityIndicatorView *footIndicatorView;
+//上拉刷新的message
+@property (nonatomic,weak)UILabel *footMessageLabel;
 
 @end
 
@@ -44,6 +48,8 @@ static NSString *identify = @"homeTableCell";
     
 
     [self setUpHeaderView];
+    
+    [self setUpFooterView];
     
     
     [self.tableView registerClass:[HomeTableViewCell class] forCellReuseIdentifier:identify];
@@ -83,19 +89,6 @@ static NSString *identify = @"homeTableCell";
 {
     return 120;
 }
-
-/*
-//5-headView
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
-    
-    headView.backgroundColor = [UIColor redColor];
-    
-    
-    return headView;
-}
-*/
 //6-滑动tableView时
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -165,9 +158,11 @@ static NSString *identify = @"homeTableCell";
 //下拉拖拽结束时
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    //下拉拖拽小于-50时
     CGFloat distance = scrollView.contentOffset.y;
 
+    //NSLog(@"distance = %f",distance);
+    
+    //下拉拖拽结束时
     if (distance < -50)
     {
         
@@ -201,7 +196,61 @@ static NSString *identify = @"homeTableCell";
             
         }];
     }
-
+    
+    //上拉拖拽时
+    CGFloat contentHeight = scrollView.contentSize.height;
+    
+    //NSLog(@"contentHeight = %f",contentHeight);
+    
+    //CGFloat contentInsetTop = scrollView.contentInset.bottom;
+    
+    //NSLog(@"contentInsetTop = %f",contentInsetTop);
+    
+    //得出屏幕的长度(固定值)
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    
+    NSLog(@"%f",distance + screenHeight - 49 - 80 + 49);
+    //49是tabBar的高度(通过获取得到)
+    //NSLog(@"tabBar的高度=%f",[UITabBar appearance].bounds.size.height);
+    
+    //80是navigation的高度(自定义)
+    //50是headView的高度
+    if (distance + screenHeight - 49 - 80 + 49 > contentHeight + 25)
+    {
+        //NSLog(@"上拉刷新中");
+        
+        
+        [UIView animateWithDuration:2 animations:^{
+            
+            _footMessageLabel.hidden = NO;
+            
+            //菊花开始转动
+            [self.footIndicatorView startAnimating];
+            
+            //整个tableView向上移动49距离
+            scrollView.contentInset = UIEdgeInsetsMake(-49, scrollView.contentInset.left, scrollView.contentInset.bottom, scrollView.contentInset.right);
+            
+        } completion:^(BOOL finished) {
+            
+            //菊花停止转动
+            [self.footIndicatorView stopAnimating];
+            
+            _footMessageLabel.hidden = YES;
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                //整个tableView返回原来的位置
+                scrollView.contentInset = UIEdgeInsetsMake(0, scrollView.contentInset.left, scrollView.contentInset.bottom, scrollView.contentInset.right);
+                
+                
+            } completion:^(BOOL finished) {
+                
+            }];
+            
+        }];
+        
+    }
+    
 }
 
 //7-设置删除或其他业务
@@ -227,11 +276,6 @@ static NSString *identify = @"homeTableCell";
     rowAction2.backgroundColor = [UIColor blueColor];
     
     return @[rowAction1,rowAction2];
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
 }
 
 //自定义tableView的headerView(添加下拉刷新控件)
@@ -281,6 +325,60 @@ static NSString *identify = @"homeTableCell";
         make.centerX.equalTo(headView.mas_centerX);
         
         make.top.equalTo(indicatorView.mas_bottom).offset(2);
+        
+    }];
+    
+    
+}
+
+//添加上拉刷新的View作为footView
+-(void)setUpFooterView
+{
+    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 49)];
+    
+    footView.backgroundColor = [UIColor whiteColor];
+    
+    self.tableView.tableFooterView = footView;
+    
+    
+    //添加刷新messageLabel
+    UILabel *footMessageLabel = [[UILabel alloc] init];
+    
+    self.footMessageLabel = footMessageLabel;
+    
+    footMessageLabel.text = @"正在努力加载";
+    
+    [footMessageLabel setTextAlignment:NSTextAlignmentCenter];
+    
+    [footMessageLabel setFont:[UIFont systemFontOfSize:15]];
+    
+    [footView addSubview:footMessageLabel];
+    
+    //初始化隐藏
+    footMessageLabel.hidden = YES;
+    
+    [footMessageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerY.equalTo(footView.mas_centerY);
+        
+        make.centerX.equalTo(footView.mas_centerX);
+        
+    }];
+    
+    
+    //添加上拉刷新菊花
+    UIActivityIndicatorView *footIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    
+    self.footIndicatorView = footIndicatorView;
+    
+    [footView addSubview:footIndicatorView];
+    
+    
+    [footIndicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.leading.equalTo(footMessageLabel.mas_trailing).offset(10);
+        
+        make.centerY.equalTo(footView.mas_centerY);
         
     }];
     

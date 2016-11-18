@@ -163,7 +163,7 @@
     //消失
     if (isHeadAppear == 1)
     {
-        NSLog(@"headView消失");
+        //NSLog(@"headView消失");
         
         [UIView animateWithDuration:0.4 animations:^{
            
@@ -178,7 +178,7 @@
     //显示
     else
     {
-        NSLog(@"headView显示");
+        //NSLog(@"headView显示");
         
         [UIView animateWithDuration:0.4 animations:^{
             
