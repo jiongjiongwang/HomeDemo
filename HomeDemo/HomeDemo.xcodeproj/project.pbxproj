@@ -30,6 +30,8 @@
 		FE75EA651DDC58A30019ECE4 /* HomeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE75EA641DDC58A30019ECE4 /* HomeViewCell.m */; };
 		FE75EA691DDC59B00019ECE4 /* HomeTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE75EA681DDC59B00019ECE4 /* HomeTableController.m */; };
 		FE75EA6E1DDC5CF70019ECE4 /* HomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE75EA6D1DDC5CF70019ECE4 /* HomeTableViewCell.m */; };
+		FE8EFB701DDEF4EB0092D8C1 /* SecondViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8EFB6F1DDEF4EB0092D8C1 /* SecondViewCell.m */; };
+		FE8EFB731DDF00B00092D8C1 /* NewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8EFB721DDF00B00092D8C1 /* NewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +104,10 @@
 		FE75EA681DDC59B00019ECE4 /* HomeTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeTableController.m; sourceTree = "<group>"; };
 		FE75EA6C1DDC5CF70019ECE4 /* HomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeTableViewCell.h; sourceTree = "<group>"; };
 		FE75EA6D1DDC5CF70019ECE4 /* HomeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeTableViewCell.m; sourceTree = "<group>"; };
+		FE8EFB6E1DDEF4EB0092D8C1 /* SecondViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewCell.h; sourceTree = "<group>"; };
+		FE8EFB6F1DDEF4EB0092D8C1 /* SecondViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewCell.m; sourceTree = "<group>"; };
+		FE8EFB711DDF00B00092D8C1 /* NewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewController.h; sourceTree = "<group>"; };
+		FE8EFB721DDF00B00092D8C1 /* NewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +289,8 @@
 				FE75EA661DDC59850019ECE4 /* TableViewController */,
 				FE75EA571DDC31450019ECE4 /* HomeViewController.h */,
 				FE75EA581DDC31450019ECE4 /* HomeViewController.m */,
+				FE8EFB711DDF00B00092D8C1 /* NewController.h */,
+				FE8EFB721DDF00B00092D8C1 /* NewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -318,6 +326,8 @@
 			children = (
 				FE75EA631DDC58A30019ECE4 /* HomeViewCell.h */,
 				FE75EA641DDC58A30019ECE4 /* HomeViewCell.m */,
+				FE8EFB6E1DDEF4EB0092D8C1 /* SecondViewCell.h */,
+				FE8EFB6F1DDEF4EB0092D8C1 /* SecondViewCell.m */,
 			);
 			name = CollectionViewCell;
 			sourceTree = "<group>";
@@ -469,6 +479,8 @@
 				FE75EA421DDC29720019ECE4 /* MASCompositeConstraint.m in Sources */,
 				FE75EA5C1DDC31A90019ECE4 /* MyInfoController.m in Sources */,
 				FE75EA481DDC29720019ECE4 /* NSArray+MASAdditions.m in Sources */,
+				FE8EFB701DDEF4EB0092D8C1 /* SecondViewCell.m in Sources */,
+				FE8EFB731DDF00B00092D8C1 /* NewController.m in Sources */,
 				FE75E9F71DDC21A80019ECE4 /* AppDelegate.m in Sources */,
 				FE75EA451DDC29720019ECE4 /* MASLayoutConstraint.m in Sources */,
 				FE75E9F41DDC21A80019ECE4 /* main.m in Sources */,

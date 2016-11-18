@@ -9,7 +9,7 @@
 #import "HomeViewController.h"
 #import "Masonry.h"
 #import "HomeViewCell.h"
-
+#import "SecondViewCell.h"
 
 
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
@@ -27,14 +27,15 @@
 //4-按钮下面的横线
 @property (nonatomic,weak)UIView *lineView;
 
-//5-navigation下面的可以消失的view
-@property (nonatomic,weak)UIView *drumView;
 
-//6-collectionView的flowLayout
+//5-collectionView的flowLayout
 @property (nonatomic,weak)UICollectionViewFlowLayout *flowLayout;
 
-//7-collectionView
+//6-collectionView
 @property (nonatomic,weak)UICollectionView *homeCollectionView;
+
+//按钮数组
+@property (nonatomic,strong)NSArray *buttonArray;
 
 
 @end
@@ -42,6 +43,19 @@
 @implementation HomeViewController
 
 static NSString *collectionIdentifier = @"collectCell";
+
+static NSString *secondCollectionIdentifier = @"secondCell";
+
+-(NSArray<UIButton *> *)buttonArray
+{
+    if (_buttonArray == nil)
+    {
+        _buttonArray = @[self.leftButton,self.rightButton];
+    }
+    
+    return _buttonArray;
+}
+
 
 - (void)viewDidLoad
 {
@@ -56,9 +70,6 @@ static NSString *collectionIdentifier = @"collectCell";
     
     //自定义navigationController
     [self setNav];
-    
-    //设置navigationController下面的DrumView
-    //[self setUpDrumView];
     
     //设置位于中下部的collectionView
     [self setUpCollectionView];
@@ -125,7 +136,15 @@ static NSString *collectionIdentifier = @"collectCell";
         make.bottom.equalTo(naviBackView.mas_bottom).offset(-10);
         make.trailing.equalTo(naviBackView.mas_trailing).offset(-120);
     }];
-
+    
+    //按钮触发事件
+    [leftButton addTarget:self action:@selector(ClickButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
+    //添加触发事件
+    [rightButton addTarget:self action:@selector(ClickButton:) forControlEvents:UIControlEventTouchUpInside];
+    
     
     //2-按钮下面的横线
     UIView *lineView = [[UIView alloc] init];
@@ -146,26 +165,6 @@ static NSString *collectionIdentifier = @"collectCell";
     
 }
 
-//设置DrumView
--(void)setUpDrumView
-{
-    UIView *drumView = [[UIView alloc] init];
-    
-    self.drumView = drumView;
-    
-    drumView.backgroundColor = [UIColor lightGrayColor];
-    
-    [self.view addSubview:drumView];
-    
-    [drumView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.top.equalTo(self.naviBackView.mas_bottom).offset(1);
-        
-        make.leading.trailing.equalTo(self.view);
-        
-        make.height.equalTo(@40);
-    }];
-}
 
 //设置位于中下部的collectionView
 -(void)setUpCollectionView
@@ -213,14 +212,17 @@ static NSString *collectionIdentifier = @"collectCell";
         make.bottom.equalTo(self.view).offset(0);
     }];
     
-    //设置代理
+    
+    
     homeCollectionView.dataSource = self;
     
     homeCollectionView.delegate = self;
     
     
-    //必须使用注册的方式来使用collection的cell
+    
     [homeCollectionView registerClass:[HomeViewCell class] forCellWithReuseIdentifier:collectionIdentifier];
+    
+    [homeCollectionView registerClass:[SecondViewCell class] forCellWithReuseIdentifier:secondCollectionIdentifier];
     
 }
 
@@ -242,17 +244,114 @@ static NSString *collectionIdentifier = @"collectCell";
 //2-item
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 2;
+    return 1;
 }
 
 //3-item内容
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    HomeViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:collectionIdentifier forIndexPath:indexPath];
+    
+    UICollectionViewCell *cell;
+    
+    if (indexPath.item == 0)
+    {
+        cell = (HomeViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:collectionIdentifier forIndexPath:indexPath];
+    }
+    else
+    {
+        cell = (SecondViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:secondCollectionIdentifier forIndexPath:indexPath];
+    }
+    
     
     return cell;
 }
+//(4)当手动拖拽collectionView时的触发事件
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    
+    CGFloat scale = scrollView.contentOffset.x / self.homeCollectionView.bounds.size.width;
+    
+    
+    //moveLine的滑动距离
+    CGFloat moveX = (50 + self.leftButton.bounds.size.width) * scale;
+    
+    //moveLine运动
+    _lineView.transform = CGAffineTransformMakeTranslation(moveX, 0);
+}
 
+//(5)当手动拖拽完成之后的触发事件
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    NSInteger index = scrollView.contentOffset.x/self.homeCollectionView.bounds.size.width;
+    
+    
+    [self ClickButtonWith:index];
+    
+}
+
+-(void)ClickButtonWith:(NSInteger )buttonIndex
+{
+    
+    UIButton *clickButton = self.buttonArray[buttonIndex];
+    
+    
+    
+    //点击的button字体变成黑色
+    [clickButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    [self.buttonArray enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        
+        if (obj != clickButton)
+        {
+            [obj setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        }
+        
+    }];
+}
+//按钮触发事件
+-(void)ClickButton:(UIButton *)button
+{
+    
+    //点击的button字体变成黑色
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [self.buttonArray enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        
+        if (obj != button)
+        {
+            [obj setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        }
+        else
+        {
+            //collection滚动到响应的cell
+            [weakSelf.homeCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+            
+            
+            //moveLine的滑动
+            //判断是不是第一个
+            if (idx == 0)
+            {
+                self.lineView.transform = CGAffineTransformIdentity;
+            }
+            else
+            {
+                
+                //moveLine的滑动距离
+                CGFloat moveX = (50 + self.leftButton.bounds.size.width) * idx;
+                
+                //moveLine滑动
+                self.lineView.transform =CGAffineTransformMakeTranslation(moveX, 0);
+            }
+            
+        }
+        
+    }];
+    
+}
 
 
 - (void)didReceiveMemoryWarning

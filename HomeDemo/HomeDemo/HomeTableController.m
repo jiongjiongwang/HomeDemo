@@ -9,6 +9,8 @@
 #import "HomeTableController.h"
 #import "HomeTableViewCell.h"
 #import "Masonry.h"
+#import "NewController.h"
+
 //屏幕的长度(固定值)
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
 
@@ -132,7 +134,7 @@ static NSString *identify = @"homeTableCell";
         [_messageLabel setText:@"下拉刷新"];
     }
     
-
+    
     if (distance > 50)
     {
         
@@ -228,12 +230,11 @@ static NSString *identify = @"homeTableCell";
     //NSLog(@"tabBar的高度=%f",[UITabBar appearance].bounds.size.height);
     //80是navigation的高度(自定义)
     //49是footView的高度
-    if (distance + kScreenHeight - 49 - 80 + 49 > contentHeight + 49)
+    if (distance + kScreenHeight - 49 - 80 + 68 > contentHeight + 19)
     {
         //NSLog(@"上拉刷新中");
         
-    
-        [UIView animateWithDuration:1 animations:^{
+        [UIView animateWithDuration:2 animations:^{
             
             _footMessageLabel.hidden = NO;
             
@@ -241,7 +242,7 @@ static NSString *identify = @"homeTableCell";
             [self.footIndicatorView startAnimating];
             
             //整个tableView向上移动49距离
-            scrollView.contentInset = UIEdgeInsetsMake(-49, scrollView.contentInset.left, scrollView.contentInset.bottom, scrollView.contentInset.right);
+            scrollView.contentInset = UIEdgeInsetsMake(-60, scrollView.contentInset.left, scrollView.contentInset.bottom, scrollView.contentInset.right);
             
         } completion:^(BOOL finished) {
             
@@ -250,7 +251,7 @@ static NSString *identify = @"homeTableCell";
             
             _footMessageLabel.hidden = YES;
             
-            [UIView animateWithDuration:0.5 animations:^{
+            [UIView animateWithDuration:1 animations:^{
                 
                 //整个tableView返回原来的位置
                 scrollView.contentInset = UIEdgeInsetsMake(0, scrollView.contentInset.left, scrollView.contentInset.bottom, scrollView.contentInset.right);
@@ -275,8 +276,8 @@ static NSString *identify = @"homeTableCell";
             
         }];
         
-        
     }
+    
     
 }
 
@@ -295,7 +296,17 @@ static NSString *identify = @"homeTableCell";
     
     UITableViewRowAction *rowAction2 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"更多" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
        
-        NSLog(@"点击了第%ld组第%ld行的内容",indexPath.section,indexPath.row);
+        //NSLog(@"点击了第%ld组第%ld行的内容",indexPath.section,indexPath.row);
+        /*
+        NewController *newViewController = [[NewController alloc] init];
+        
+        
+        newViewController.title = [NSString stringWithFormat:@"%ld组第%ld行",indexPath.section,indexPath.row];
+        
+        UINavigationController *newNav = [[UINavigationController alloc] initWithRootViewController:newViewController];
+        
+        [self.navigationController pushViewController:newNav animated:YES];
+        */
         
     }];
     
@@ -316,7 +327,7 @@ static NSString *identify = @"homeTableCell";
     
     
     
-    //添加一个菊花到headerView上‘
+    //添加一个菊花到headerView上
     UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
     self.indicatorView = indicatorView;
@@ -361,7 +372,7 @@ static NSString *identify = @"homeTableCell";
 //添加上拉刷新的View作为footView
 -(void)setUpFooterView
 {
-    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 49)];
+    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 68)];
     
     footView.backgroundColor = [UIColor whiteColor];
     
@@ -377,7 +388,7 @@ static NSString *identify = @"homeTableCell";
     
     [footMessageLabel setTextAlignment:NSTextAlignmentCenter];
     
-    [footMessageLabel setFont:[UIFont systemFontOfSize:15]];
+    [footMessageLabel setFont:[UIFont systemFontOfSize:13]];
     
     [footView addSubview:footMessageLabel];
     
@@ -386,7 +397,7 @@ static NSString *identify = @"homeTableCell";
     
     [footMessageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.centerY.equalTo(footView.mas_centerY);
+        make.top.equalTo(footView);
         
         make.centerX.equalTo(footView.mas_centerX);
         
@@ -405,7 +416,7 @@ static NSString *identify = @"homeTableCell";
         
         make.leading.equalTo(footMessageLabel.mas_trailing).offset(10);
         
-        make.centerY.equalTo(footView.mas_centerY);
+        make.top.equalTo(footView);
         
     }];
     
