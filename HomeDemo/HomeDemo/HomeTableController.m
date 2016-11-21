@@ -211,7 +211,7 @@ static NSString *identify = @"homeTableCell";
             //菊花停止转动
             [self.indicatorView stopAnimating];
             
-            [UIView animateWithDuration:1.5 animations:^{
+            [UIView animateWithDuration:0.3 animations:^{
                 
                 //整个tableView返回原来的位置
                 scrollView.contentInset = UIEdgeInsetsMake(0, scrollView.contentInset.left, scrollView.contentInset.bottom, scrollView.contentInset.right);

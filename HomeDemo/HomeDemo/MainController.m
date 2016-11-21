@@ -31,13 +31,23 @@
     //设置子控制器
     [self setUpControllers];
     
-    //设置tabbar的颜色
-    self.tabBar.backgroundColor = [UIColor blueColor];
     
-    //设置半透明的tabBar
-    self.tabBar.alpha = 0.5;
+    //1-设置一个什么图片都没有的bgImg当做tabBar的背景图片！！！
+    UIImage *bgImg = [[UIImage alloc] init];
+    [self.tabBar setBackgroundImage:bgImg];
+    [self.tabBar setShadowImage:bgImg];
     
+    //2-自定义一个backView,并设置backView为半透明(alpha设置为0.5）
+    UIView *backView = [[UIView alloc] init];
     
+    backView.backgroundColor = [UIColor blueColor];
+    
+    backView.frame = self.tabBar.bounds;
+    
+    backView.alpha = 0.5;
+    
+    //3-将自定义的backView插入到当前的tabBar当中
+    [self.tabBar insertSubview:backView atIndex:0];
     
 }
 
@@ -67,7 +77,10 @@
     childVc.tabBarItem.selectedImage = [[UIImage imageNamed:[NSString stringWithFormat:@"%@_select",imageName]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     //设置富文本文字颜色
-    [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} forState:UIControlStateSelected];
+    [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor greenColor]} forState:UIControlStateSelected];
+    
+    [childVc.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]} forState:UIControlStateNormal];
+    
     
     
     //添加到tabbarVC上
