@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ContentView.h"
 
 @interface DetailView : UIView
 
@@ -19,6 +20,13 @@
 
 //转场动画
 - (void)aminmationShow;
+
+- (void)animationDismissUsingCompeteBlock:(void (^)(void))complete;
+
+
+
+@property (nonatomic,weak)ContentView *contentView;
+
 
 
 @end

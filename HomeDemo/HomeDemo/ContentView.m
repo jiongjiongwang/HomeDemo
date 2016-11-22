@@ -17,6 +17,10 @@
 //2-标签
 @property (nonatomic,weak)UILabel *cellLabel;
 
+//3-返回标签
+@property (nonatomic,weak)UIButton *backButton;
+
+
 
 @end
 
@@ -55,6 +59,8 @@
     }];
     
     
+    
+    
     //2-label
     UILabel *cellLabel = [[UILabel alloc] init];
     
@@ -75,6 +81,37 @@
         make.leading.equalTo(cellImage.mas_trailing).offset(20);
         
     }];
+    
+    //3-返回按钮
+    UIButton *backButton = [[UIButton alloc] init];
+    
+    self.backButton = backButton;
+    
+    [backButton setImage:[UIImage imageNamed:@"Down"] forState:UIControlStateNormal];
+    
+    [self addSubview:backButton];
+    
+    
+    
+    [backButton mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.leading.equalTo(self.mas_leading).offset(10);
+        make.top.equalTo(self.mas_top).offset(10);
+        make.width.equalTo(@20);
+        make.height.equalTo(@20);
+        
+    }];
+    
+    //添加点击触发事件
+    [backButton addTarget:self action:@selector(Back) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+
+
+//返回上一级
+-(void)Back
+{
+    
 }
 
 

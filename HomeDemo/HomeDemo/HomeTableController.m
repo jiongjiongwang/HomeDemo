@@ -43,6 +43,9 @@
 //加载数据的数组
 @property (nonatomic,strong)NSMutableArray<NSString *> *mDataArray;
 
+//点击cell之后的生成新的View
+@property (nonatomic,weak)DetailView *detailView;
+
 
 @end
 
@@ -363,16 +366,40 @@ static NSString *identify = @"homeTableCell";
     
     DetailView *detailView = [[DetailView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) dataStr:strData index:indexPath.row andCellColor:cell.backgroundColor];
     
+    self.detailView = detailView;
+    
     detailView.offsetY = y;
     
     //NSLog(@"[[[self.tableView superview] superview] superview] = %@",[[[[self.tableView superview] superview] superview] superview]);
     
     [[[[[self.tableView superview] superview] superview] superview]    addSubview:detailView];
     
+    //添加轻扫手势
+    UISwipeGestureRecognizer *Swipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(panAction:)];
+    
+    detailView.contentView.userInteractionEnabled = YES;
+    
+    Swipe.direction = UISwipeGestureRecognizerDirectionDown;
+    
+    [detailView.contentView addGestureRecognizer:Swipe];
+    
+    
     //开启转场动画
     [detailView aminmationShow];
     
 }
+
+
+//手势触发
+- (void)panAction:(UISwipeGestureRecognizer *)swipe
+{
+    
+    [_detailView animationDismissUsingCompeteBlock:^{
+        
+        _detailView = nil;
+    }];
+}
+
 
 
 //自定义tableView的headerView(添加下拉刷新控件)
