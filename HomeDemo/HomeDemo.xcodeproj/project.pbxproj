@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE574FAD1DE444D9005599BA /* DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE574FAC1DE444D9005599BA /* DetailView.m */; };
+		FE574FB01DE44961005599BA /* ContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE574FAF1DE44961005599BA /* ContentView.m */; };
 		FE75E9F41DDC21A80019ECE4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE75E9F31DDC21A80019ECE4 /* main.m */; };
 		FE75E9F71DDC21A80019ECE4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FE75E9F61DDC21A80019ECE4 /* AppDelegate.m */; };
 		FE75E9FF1DDC21A80019ECE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE75E9FE1DDC21A80019ECE4 /* Assets.xcassets */; };
@@ -52,6 +54,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FE574FAB1DE444D9005599BA /* DetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailView.h; sourceTree = "<group>"; };
+		FE574FAC1DE444D9005599BA /* DetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailView.m; sourceTree = "<group>"; };
+		FE574FAE1DE44961005599BA /* ContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentView.h; sourceTree = "<group>"; };
+		FE574FAF1DE44961005599BA /* ContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentView.m; sourceTree = "<group>"; };
 		FE75E9EF1DDC21A80019ECE4 /* HomeDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE75E9F31DDC21A80019ECE4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FE75E9F51DDC21A80019ECE4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -299,6 +305,10 @@
 			isa = PBXGroup;
 			children = (
 				FE75EA621DDC586A0019ECE4 /* Cell */,
+				FE574FAB1DE444D9005599BA /* DetailView.h */,
+				FE574FAC1DE444D9005599BA /* DetailView.m */,
+				FE574FAE1DE44961005599BA /* ContentView.h */,
+				FE574FAF1DE44961005599BA /* ContentView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -482,6 +492,7 @@
 				FE8EFB701DDEF4EB0092D8C1 /* SecondViewCell.m in Sources */,
 				FE8EFB731DDF00B00092D8C1 /* NewController.m in Sources */,
 				FE75E9F71DDC21A80019ECE4 /* AppDelegate.m in Sources */,
+				FE574FAD1DE444D9005599BA /* DetailView.m in Sources */,
 				FE75EA451DDC29720019ECE4 /* MASLayoutConstraint.m in Sources */,
 				FE75E9F41DDC21A80019ECE4 /* main.m in Sources */,
 				FE75EA4B1DDC29720019ECE4 /* ViewController+MASAdditions.m in Sources */,
@@ -490,6 +501,7 @@
 				FE75EA651DDC58A30019ECE4 /* HomeViewCell.m in Sources */,
 				FE75EA561DDC31000019ECE4 /* SecondController.m in Sources */,
 				FE75EA461DDC29720019ECE4 /* MASViewAttribute.m in Sources */,
+				FE574FB01DE44961005599BA /* ContentView.m in Sources */,
 				FE75EA431DDC29720019ECE4 /* MASConstraint.m in Sources */,
 				FE75EA691DDC59B00019ECE4 /* HomeTableController.m in Sources */,
 				FE75EA501DDC2B600019ECE4 /* MainController.m in Sources */,

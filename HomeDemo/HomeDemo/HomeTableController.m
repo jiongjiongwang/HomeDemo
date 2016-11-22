@@ -10,9 +10,14 @@
 #import "HomeTableViewCell.h"
 #import "Masonry.h"
 #import "NewController.h"
+#import "DetailView.h"
+
 
 //屏幕的长度(固定值)
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
+
+#define kScreenWidth [UIScreen mainScreen].bounds.size.width
+
 
 @interface HomeTableController ()
 
@@ -337,6 +342,38 @@ static NSString *identify = @"homeTableCell";
     
     return @[rowAction1,rowAction2];
 }
+//8-点击cell的触发事件
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self showImageAtIndexPath:indexPath];
+}
+
+//点击cell之后出现了新的View(是View,不是到了另一个Controller)
+- (void)showImageAtIndexPath:(NSIndexPath *)indexPath
+{
+    //取cell
+    HomeTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    //取cell得数据
+    NSString *strData = self.mDataArray[indexPath.row];
+    
+    //取当前cell的y轴上的坐标
+    CGRect rect = [cell convertRect:cell.bounds toView:nil];
+    CGFloat y = rect.origin.y;
+    
+    DetailView *detailView = [[DetailView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) dataStr:strData index:indexPath.row andCellColor:cell.backgroundColor];
+    
+    detailView.offsetY = y;
+    
+    //NSLog(@"[[[self.tableView superview] superview] superview] = %@",[[[[self.tableView superview] superview] superview] superview]);
+    
+    [[[[[self.tableView superview] superview] superview] superview]    addSubview:detailView];
+    
+    //开启转场动画
+    [detailView aminmationShow];
+    
+}
+
 
 //自定义tableView的headerView(添加下拉刷新控件)
 -(void)setUpHeaderView

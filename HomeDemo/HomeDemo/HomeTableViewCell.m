@@ -9,6 +9,8 @@
 #import "HomeTableViewCell.h"
 #import "Masonry.h"
 
+#define RANDOMCOLOR [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1]
+
 @interface HomeTableViewCell()
 
 //1-图片
@@ -36,6 +38,9 @@
 
 -(void)setUpUI
 {
+    
+    self.backgroundColor = [UIColor cyanColor];
+    
     //1-图片
     UIImageView *cellImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"game replay"]];
     
