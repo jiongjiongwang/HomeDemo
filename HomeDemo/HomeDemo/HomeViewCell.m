@@ -145,7 +145,7 @@
         
         make.leading.trailing.equalTo(self.contentView);
         
-        make.height.equalTo(@50);
+        make.height.equalTo(@55);
     }];
     
     
@@ -168,7 +168,7 @@
         [UIView animateWithDuration:0.4 animations:^{
            
             //headView消失
-            self.headView.transform = CGAffineTransformMakeTranslation(0, -50);
+            self.headView.transform = CGAffineTransformMakeTranslation(0, -55);
             
         } completion:^(BOOL finished) {
             

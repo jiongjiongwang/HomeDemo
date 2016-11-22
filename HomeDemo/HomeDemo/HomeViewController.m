@@ -244,7 +244,7 @@ static NSString *secondCollectionIdentifier = @"secondCell";
 //2-item
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 1;
+    return 2;
 }
 
 //3-item内容
@@ -271,9 +271,35 @@ static NSString *secondCollectionIdentifier = @"secondCell";
     
     CGFloat scale = scrollView.contentOffset.x / self.homeCollectionView.bounds.size.width;
     
+    //取cell的索引(scale的整数部分)
+    int preIndex = (int)scale;
+    
+    NSIndexPath *preIndexPath = [NSIndexPath indexPathForItem:preIndex inSection:0];
+    
+    NSIndexPath *nextIndexPath = [NSIndexPath indexPathForItem:preIndex+1 inSection:0];
+    
+    //取前一个cell
+    UICollectionViewCell * preCell = (UICollectionViewCell *)[self.homeCollectionView cellForItemAtIndexPath:preIndexPath];
+    
+
+        //NSLog(@"前一个cell清晰度=%f",1 - (scale - preIndex));
+        preCell.alpha = 1 - (scale - preIndex);
+    
+    
+    
+    
+    
+    //取后一个cell
+    UICollectionViewCell * nextCell = (UICollectionViewCell *)[self.homeCollectionView cellForItemAtIndexPath:nextIndexPath];
+    
+    
+        //NSLog(@"下一个cell清晰度=%f",scale - preIndex);
+        nextCell.alpha = scale - preIndex;
+    
     
     //moveLine的滑动距离
     CGFloat moveX = (50 + self.leftButton.bounds.size.width) * scale;
+    
     
     //moveLine运动
     _lineView.transform = CGAffineTransformMakeTranslation(moveX, 0);
@@ -329,6 +355,8 @@ static NSString *secondCollectionIdentifier = @"secondCell";
         {
             //collection滚动到响应的cell
             [weakSelf.homeCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+            
+            
             
             
             //moveLine的滑动

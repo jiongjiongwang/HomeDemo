@@ -23,7 +23,7 @@
 
 -(void)setUpUI
 {
-    self.backgroundColor = [UIColor cyanColor];
+    self.backgroundColor = [UIColor redColor];
 }
 
 @end

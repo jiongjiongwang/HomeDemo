@@ -22,8 +22,10 @@
 //headView的消失和显示判断
 @property (nonatomic,assign)BOOL headViewDisappear;
 
-//下拉刷新的菊花
-@property (nonatomic,weak)UIActivityIndicatorView *indicatorView;
+
+//下拉时显示的图片
+@property (nonatomic,weak)UIImageView *gifImages;
+
 
 //下拉刷新的messageLabel
 @property (nonatomic,weak)UILabel *messageLabel;
@@ -61,6 +63,8 @@ static NSString *identify = @"homeTableCell";
     
     return _mDataArray;
 }
+
+
 
 
 - (void)viewDidLoad
@@ -125,17 +129,30 @@ static NSString *identify = @"homeTableCell";
     CGFloat deltaDistance = distance - _preDistance;
     
     
-    if (distance < -50 && scrollView.dragging == YES)
+    if (distance < -55 && scrollView.dragging == YES)
     {
+        //下拉到了极限了
         [_messageLabel setText:@"松开手刷新"];
     }
-    else if (distance >= -50 && distance <0 && scrollView.dragging == YES)
+    else if (distance >= -55 && distance <0 && scrollView.dragging == YES)
     {
+        //正在下拉过程中
         [_messageLabel setText:@"下拉刷新"];
+        
+        //得出索引的整数部分
+        int index = 60 * -(distance) / 55;
+        
+        //NSLog(@"%d",index);
+        
+        //得出UIImage
+        UIImage *getGifImage = [UIImage imageNamed:[NSString stringWithFormat:@"dropdown_anim__000%zd", index]];
+        
+        [self.gifImages setImage:getGifImage];
+        
     }
     
     
-    if (distance > 50)
+    if (distance > 55)
     {
         
         //大于50且处于上拉阶段的时候才消失headView
@@ -190,7 +207,7 @@ static NSString *identify = @"homeTableCell";
     NSUInteger dataCount = self.mDataArray.count;
     
     //下拉拖拽结束时
-    if (distance < -50)
+    if (distance < -55)
     {
         
         [UIView animateWithDuration:2 animations:^{
@@ -198,20 +215,21 @@ static NSString *identify = @"homeTableCell";
             //隐藏下拉刷新信息
             [_messageLabel setText:@"刷新中"];
             
-            //菊花开始转动
-            [self.indicatorView startAnimating];
             
-            //整个tableView向下移动50距离
-            scrollView.contentInset = UIEdgeInsetsMake(50, scrollView.contentInset.left, scrollView.contentInset.bottom, scrollView.contentInset.right);
+            [self ImageStartAnimate];
+            
+            
+            //整个tableView向下移动60距离
+            scrollView.contentInset = UIEdgeInsetsMake(55, scrollView.contentInset.left, scrollView.contentInset.bottom, scrollView.contentInset.right);
             
         } completion:^(BOOL finished) {
             
-            [_messageLabel setText:@"刷新出10条数据"];
+            //[_messageLabel setText:@"刷新出10条数据"];
             
-            //菊花停止转动
-            [self.indicatorView stopAnimating];
+            [self ImageStopAnimate];
             
-            [UIView animateWithDuration:0.3 animations:^{
+            
+            [UIView animateWithDuration:0.2 animations:^{
                 
                 //整个tableView返回原来的位置
                 scrollView.contentInset = UIEdgeInsetsMake(0, scrollView.contentInset.left, scrollView.contentInset.bottom, scrollView.contentInset.right);
@@ -223,6 +241,10 @@ static NSString *identify = @"homeTableCell";
             
         }];
     }
+    
+    
+    
+    
     
     //上拉拖拽时
     CGFloat contentHeight = scrollView.contentSize.height;
@@ -242,7 +264,7 @@ static NSString *identify = @"homeTableCell";
             [self.footIndicatorView startAnimating];
             
             //整个tableView向上移动49距离
-            scrollView.contentInset = UIEdgeInsetsMake(-60, scrollView.contentInset.left, scrollView.contentInset.bottom, scrollView.contentInset.right);
+            scrollView.contentInset = UIEdgeInsetsMake(-50, scrollView.contentInset.left, scrollView.contentInset.bottom, scrollView.contentInset.right);
             
         } completion:^(BOOL finished) {
             
@@ -319,37 +341,18 @@ static NSString *identify = @"homeTableCell";
 //自定义tableView的headerView(添加下拉刷新控件)
 -(void)setUpHeaderView
 {
-    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 55)];
     
     headView.backgroundColor = [UIColor redColor];
     
     self.tableView.tableHeaderView = headView;
     
     
-    
-    //添加一个菊花到headerView上
-    UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    
-    self.indicatorView = indicatorView;
-    
-    [headView addSubview:indicatorView];
-    
-    
-    [indicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.centerX.equalTo(headView.mas_centerX);
-        
-        make.centerY.equalTo(headView.mas_centerY);
-        
-    }];
-    
-    
-    
     //添加刷新messageLabel
     UILabel *messageLabel = [[UILabel alloc] init];
     
     self.messageLabel = messageLabel;
-
+    
     messageLabel.text = @"下拉刷新";
     
     [messageLabel setTextAlignment:NSTextAlignmentCenter];
@@ -359,15 +362,66 @@ static NSString *identify = @"homeTableCell";
     [headView addSubview:messageLabel];
     
     [messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerX.equalTo(headView.mas_centerX);
+        
+        make.bottom.equalTo(headView.mas_bottom).offset(0);
+        
+    }];
+    
+    
+    
+    //添加一个图片到headerView上
+    UIImageView *gifImages = [[UIImageView alloc] init];
+    
+    self.gifImages = gifImages;
+    
+    [gifImages setImage:[UIImage imageNamed:@"dropdown_anim__0001"]];
+    
+    [gifImages sizeToFit];
+    
+    [headView addSubview:gifImages];
+    
+    [gifImages mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.centerX.equalTo(headView.mas_centerX);
         
-        make.top.equalTo(indicatorView.mas_bottom).offset(2);
+        make.bottom.equalTo(headView.mas_bottom).offset(-6);
         
     }];
     
     
 }
+
+//正在刷新：正在吃包子
+-(void)ImageStartAnimate
+{
+    //设置图片数组
+    NSMutableArray *imageArray = [NSMutableArray array];
+    
+    for (NSUInteger i = 1; i<=3; i++)
+    {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"dropdown_loading_0%zd", i]];
+        
+        [imageArray addObject:image];
+    }
+    
+    //开始转动
+    [_gifImages stopAnimating];
+    
+    _gifImages.animationImages = imageArray;
+    
+    _gifImages.animationDuration = imageArray.count * 0.1;
+    
+    [_gifImages startAnimating];
+}
+
+//停止刷新
+-(void)ImageStopAnimate
+{
+    [_gifImages stopAnimating];
+}
+
 
 //添加上拉刷新的View作为footView
 -(void)setUpFooterView
