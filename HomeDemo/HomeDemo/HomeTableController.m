@@ -9,7 +9,6 @@
 #import "HomeTableController.h"
 #import "HomeTableViewCell.h"
 #import "Masonry.h"
-#import "NewController.h"
 #import "DetailView.h"
 
 
@@ -31,9 +30,6 @@
 //下拉时显示的图片
 @property (nonatomic,weak)UIImageView *gifImages;
 
-
-//下拉刷新的messageLabel
-@property (nonatomic,weak)UILabel *messageLabel;
 
 //上拉刷新的菊花
 @property (nonatomic,weak)UIActivityIndicatorView *footIndicatorView;
@@ -143,12 +139,10 @@ static NSString *identify = @"homeTableCell";
     if (distance < -55 && scrollView.dragging == YES)
     {
         //下拉到了极限了
-        [_messageLabel setText:@"松开手刷新"];
     }
     else if (distance >= -55 && distance <0 && scrollView.dragging == YES)
     {
         //正在下拉过程中
-        [_messageLabel setText:@"下拉刷新"];
         
         //得出索引的整数部分
         int index = 60 * -(distance) / 55;
@@ -223,9 +217,6 @@ static NSString *identify = @"homeTableCell";
         
         [UIView animateWithDuration:2 animations:^{
             
-            //隐藏下拉刷新信息
-            [_messageLabel setText:@"刷新中"];
-            
             
             [self ImageStartAnimate];
             
@@ -235,7 +226,6 @@ static NSString *identify = @"homeTableCell";
             
         } completion:^(BOOL finished) {
             
-            //[_messageLabel setText:@"刷新出10条数据"];
             
             [self ImageStopAnimate];
             
@@ -247,7 +237,7 @@ static NSString *identify = @"homeTableCell";
                 
             } completion:^(BOOL finished) {
                
-                [_messageLabel setText:@"下拉刷新"];
+                
             }];
             
         }];
@@ -330,16 +320,6 @@ static NSString *identify = @"homeTableCell";
     UITableViewRowAction *rowAction2 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"更多" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
        
         //NSLog(@"点击了第%ld组第%ld行的内容",indexPath.section,indexPath.row);
-        /*
-        NewController *newViewController = [[NewController alloc] init];
-        
-        
-        newViewController.title = [NSString stringWithFormat:@"%ld组第%ld行",indexPath.section,indexPath.row];
-        
-        UINavigationController *newNav = [[UINavigationController alloc] initWithRootViewController:newViewController];
-        
-        [self.navigationController pushViewController:newNav animated:YES];
-        */
         
     }];
     
@@ -419,27 +399,6 @@ static NSString *identify = @"homeTableCell";
     self.tableView.tableHeaderView = headView;
     
     
-    //添加刷新messageLabel
-    UILabel *messageLabel = [[UILabel alloc] init];
-    
-    self.messageLabel = messageLabel;
-    
-    messageLabel.text = @"下拉刷新";
-    
-    [messageLabel setTextAlignment:NSTextAlignmentCenter];
-    
-    [messageLabel setFont:[UIFont systemFontOfSize:10]];
-    
-    [headView addSubview:messageLabel];
-    
-    [messageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.centerX.equalTo(headView.mas_centerX);
-        
-        make.bottom.equalTo(headView.mas_bottom).offset(0);
-        
-    }];
-    
     
     
     //添加一个图片到headerView上
@@ -457,7 +416,7 @@ static NSString *identify = @"homeTableCell";
        
         make.centerX.equalTo(headView.mas_centerX);
         
-        make.bottom.equalTo(headView.mas_bottom).offset(-6);
+        make.bottom.equalTo(headView.mas_bottom).offset(0);
         
     }];
     

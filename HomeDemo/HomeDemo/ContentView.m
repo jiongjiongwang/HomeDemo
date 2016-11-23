@@ -87,6 +87,10 @@
     
     self.backButton = backButton;
     
+    backButton.layer.cornerRadius = 10;
+    
+    backButton.clipsToBounds = YES;
+    
     backButton.backgroundColor = [UIColor lightGrayColor];
     
     [backButton setImage:[UIImage imageNamed:@"Down"] forState:UIControlStateNormal];
