@@ -87,16 +87,17 @@
     
     self.backButton = backButton;
     
+    backButton.backgroundColor = [UIColor lightGrayColor];
+    
     [backButton setImage:[UIImage imageNamed:@"Down"] forState:UIControlStateNormal];
     
     [self addSubview:backButton];
     
     
-    
     [backButton mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.leading.equalTo(self.mas_leading).offset(10);
-        make.top.equalTo(self.mas_top).offset(10);
+        make.leading.equalTo(self.mas_leading).offset(20);
+        make.top.equalTo(self.mas_top).offset(20);
         make.width.equalTo(@20);
         make.height.equalTo(@20);
         

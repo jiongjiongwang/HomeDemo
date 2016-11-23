@@ -117,6 +117,9 @@ static NSString *identify = @"homeTableCell";
 {
     HomeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify forIndexPath:indexPath];
     
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     NSString *str = self.mDataArray[indexPath.row];
     
     cell.labelStr = str;
@@ -370,9 +373,13 @@ static NSString *identify = @"homeTableCell";
     
     detailView.offsetY = y;
     
+    
     //NSLog(@"[[[self.tableView superview] superview] superview] = %@",[[[[self.tableView superview] superview] superview] superview]);
     
     [[[[[self.tableView superview] superview] superview] superview]    addSubview:detailView];
+    
+    
+    
     
     //添加轻扫手势
     UISwipeGestureRecognizer *Swipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(panAction:)];

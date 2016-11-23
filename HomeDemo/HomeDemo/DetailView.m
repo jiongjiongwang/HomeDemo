@@ -7,7 +7,7 @@
 //
 
 #import "DetailView.h"
-
+#import "DescriptionView.h"
 
 //屏幕的长度(固定值)
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
@@ -16,7 +16,7 @@
 
 @interface DetailView()
 
-
+@property (nonatomic,weak)DescriptionView *descriptionView;
 
 
 @end
@@ -32,18 +32,27 @@
     if (self)
     {
         
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
         self.userInteractionEnabled = YES;
         
         self.contentMode = UIViewContentModeTop;
         self.clipsToBounds = YES;
         
-        ContentView *contentView = [[ContentView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, 200) dataStr:strData collor:color];
+        //上
+        ContentView *contentView = [[ContentView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200) dataStr:strData collor:color];
         
         self.contentView = contentView;
         
         [self addSubview:contentView];
         
+        
+        
+        //下
+        DescriptionView *descriptionView = [[DescriptionView alloc] initWithFrame:CGRectMake(0,200, kScreenWidth, kScreenHeight - 264) dataStr:@"当前音乐是。。。。"];
+        
+        self.descriptionView = descriptionView;
+        
+        [self addSubview:descriptionView];
         
     }
 
@@ -54,17 +63,24 @@
 //转场动画
 - (void)aminmationShow
 {
+    //上
     self.contentView.frame = CGRectMake(0, self.offsetY, kScreenWidth, 120);
+    
+    
+    //下
+    self.descriptionView.frame = CGRectMake(0, self.offsetY, kScreenWidth, 120);
+    
     
     [UIView animateWithDuration:0.5 animations:^{
 
-        self.contentView.frame = CGRectMake(0, 64, kScreenWidth, 200);
+        //上
+        self.contentView.frame = CGRectMake(0, 0, kScreenWidth, 200);
         
         
-        
+        //下
+        self.descriptionView.frame = CGRectMake(0, 200, kScreenWidth, kScreenHeight - 200);
         
     } completion:^(BOOL finished) {
-        
         
         
         
@@ -83,16 +99,30 @@
         CGRect rec = self.contentView.frame;
         rec.origin.y = self.offsetY;
         rec.size.height = 120;
+        //上
         self.contentView.frame = rec;
+        
+        //下
+        self.descriptionView.frame = rec;
+        
         
     } completion:^(BOOL finished) {
         
         
-        //            _rilegoule
-        //
-        [self removeFromSuperview];
         
-        complete();
+        [self.descriptionView removeFromSuperview];
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            
+            
+            
+        } completion:^(BOOL finished) {
+            
+            //DetailView移除并销毁
+            [self removeFromSuperview];
+            
+            complete();
+        }];
         
     }];
 }

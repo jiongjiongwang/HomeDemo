@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ContentView.h"
+#import "DescriptionView.h"
+
 
 @interface DetailView : UIView
 
@@ -24,8 +26,8 @@
 - (void)animationDismissUsingCompeteBlock:(void (^)(void))complete;
 
 
-
 @property (nonatomic,weak)ContentView *contentView;
+
 
 
 

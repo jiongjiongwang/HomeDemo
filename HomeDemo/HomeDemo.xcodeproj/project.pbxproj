@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE4D27EB1DE534C5003FD19D /* DescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4D27EA1DE534C5003FD19D /* DescriptionView.m */; };
 		FE574FAD1DE444D9005599BA /* DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE574FAC1DE444D9005599BA /* DetailView.m */; };
 		FE574FB01DE44961005599BA /* ContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE574FAF1DE44961005599BA /* ContentView.m */; };
 		FE75E9F41DDC21A80019ECE4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FE75E9F31DDC21A80019ECE4 /* main.m */; };
@@ -54,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FE4D27E91DE534C5003FD19D /* DescriptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionView.h; sourceTree = "<group>"; };
+		FE4D27EA1DE534C5003FD19D /* DescriptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionView.m; sourceTree = "<group>"; };
 		FE574FAB1DE444D9005599BA /* DetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailView.h; sourceTree = "<group>"; };
 		FE574FAC1DE444D9005599BA /* DetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailView.m; sourceTree = "<group>"; };
 		FE574FAE1DE44961005599BA /* ContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentView.h; sourceTree = "<group>"; };
@@ -309,6 +312,8 @@
 				FE574FAC1DE444D9005599BA /* DetailView.m */,
 				FE574FAE1DE44961005599BA /* ContentView.h */,
 				FE574FAF1DE44961005599BA /* ContentView.m */,
+				FE4D27E91DE534C5003FD19D /* DescriptionView.h */,
+				FE4D27EA1DE534C5003FD19D /* DescriptionView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -486,6 +491,7 @@
 				FE75EA6E1DDC5CF70019ECE4 /* HomeTableViewCell.m in Sources */,
 				FE75EA491DDC29720019ECE4 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				FE75EA471DDC29720019ECE4 /* MASViewConstraint.m in Sources */,
+				FE4D27EB1DE534C5003FD19D /* DescriptionView.m in Sources */,
 				FE75EA421DDC29720019ECE4 /* MASCompositeConstraint.m in Sources */,
 				FE75EA5C1DDC31A90019ECE4 /* MyInfoController.m in Sources */,
 				FE75EA481DDC29720019ECE4 /* NSArray+MASAdditions.m in Sources */,
