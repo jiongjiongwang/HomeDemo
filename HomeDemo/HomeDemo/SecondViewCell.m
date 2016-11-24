@@ -57,16 +57,6 @@
     
     [self.contentView addSubview:downLoadView];
     
-    //设置约束不管用??
-    /*
-    [downLoadView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.centerY.equalTo(self.contentView.mas_centerY);
-        //make.trailing.equalTo(self.contentView.mas_trailing).offset(-70);
-        make.centerX.equalTo(self.contentView.mas_centerX);        //make.height.width.equalTo(@100);
-    }];
-    */
-    
 }
 
 - (void)downTask
@@ -76,28 +66,6 @@
     
     //设置定时器
     _timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(labelUpdate) userInfo:nil repeats:YES];
-    
-    /*
-    [self.manager downloadProgress:^(NSUInteger hasDownload) {
-     
-                             //根据下载信息更新下载界面
-                             dispatch_async(dispatch_get_main_queue(), ^{
-                                 
-                                 NSString *progressString  = [NSString stringWithFormat:@"%ld",hasDownload];
-                                 
-                                 self.downLoadView.progress = progressString.floatValue;
-                                 
-                                 if (hasDownload == 100)
-                                 {
-                                     //此时已在主线程
-                                     self.downLoadView.isSuccess = YES;
-                                 }
-                                 
-                             });
-                             
-                         }];
-     */
-    
     
 }
 

@@ -14,7 +14,10 @@
 //从外界获取label的标识
 @property (nonatomic,copy)NSString *labelStr;
 
-- (instancetype)initWithFrame:(CGRect)frame dataStr:(NSString *)strData collor:(UIColor *)collor;
+- (instancetype)initWithFrame:(CGRect)frame dataStr:(NSString *)strData andImage:(UIImage *)imageOfCell;
+
+//1-图片
+@property (nonatomic,weak)UIImageView *cellImage;
 
 
 @end

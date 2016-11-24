@@ -14,7 +14,7 @@
 @interface DetailView : UIView
 
 
-- (instancetype)initWithFrame:(CGRect)frame dataStr:(NSString *)strData index:(NSInteger)index andCellColor:(UIColor *)color;
+- (instancetype)initWithFrame:(CGRect)frame dataStr:(NSString *)strData index:(NSInteger)index andCellImage:(UIImage *)imageOfCell;
 
 //原来的所属的cell的y轴坐标值
 @property (nonatomic ,assign) CGFloat offsetY;
@@ -28,7 +28,6 @@
 
 @property (nonatomic,weak)ContentView *contentView;
 
-
-
+@property (nonatomic ,assign) CGAffineTransform animationTrans;
 
 @end

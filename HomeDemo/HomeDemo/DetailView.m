@@ -24,7 +24,7 @@
 
 @implementation DetailView
 
-- (instancetype)initWithFrame:(CGRect)frame dataStr:(NSString *)strData index:(NSInteger)index andCellColor:(UIColor *)color
+- (instancetype)initWithFrame:(CGRect)frame dataStr:(NSString *)strData index:(NSInteger)index andCellImage:(UIImage *)imageOfCell
 {
     self = [super initWithFrame:frame];
 
@@ -39,7 +39,8 @@
         self.clipsToBounds = YES;
         
         //上
-        ContentView *contentView = [[ContentView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200) dataStr:strData collor:color];
+        ContentView *contentView = [[ContentView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200) dataStr:strData andImage:imageOfCell];
+        
         
         self.contentView = contentView;
         
@@ -48,7 +49,7 @@
         
         
         //下
-        DescriptionView *descriptionView = [[DescriptionView alloc] initWithFrame:CGRectMake(0,200, kScreenWidth, kScreenHeight - 264) dataStr:@"当前音乐是。。。。"];
+        DescriptionView *descriptionView = [[DescriptionView alloc] initWithFrame:CGRectMake(0,200, kScreenWidth, kScreenHeight - 200) dataStr:@"当前音乐是。。。。"];
         
         self.descriptionView = descriptionView;
         
@@ -66,23 +67,33 @@
     //上
     self.contentView.frame = CGRectMake(0, self.offsetY, kScreenWidth, 120);
     
+    //上的图片
+    //self.contentView.cellImage.transform = self.animationTrans;
     
     //下
     self.descriptionView.frame = CGRectMake(0, self.offsetY, kScreenWidth, 120);
     
     
+    
     [UIView animateWithDuration:0.5 animations:^{
 
-        //上
-        self.contentView.frame = CGRectMake(0, 0, kScreenWidth, 200);
         
+        //上
+        //self.contentView.frame = CGRectMake(0, 0, 80,80);
+        self.contentView.frame = CGRectMake(0, 0, kScreenWidth,200);
+        
+        
+        //上的图片
+        //self.contentView.cellImage.transform = CGAffineTransformMakeTranslation(0,(200 - 120)/2);
         
         //下
         self.descriptionView.frame = CGRectMake(0, 200, kScreenWidth, kScreenHeight - 200);
         
+        
+        
     } completion:^(BOOL finished) {
         
-        
+                
         
     }];
     

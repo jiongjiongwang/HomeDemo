@@ -15,8 +15,7 @@
 
 @interface HomeTableViewCell()<JSDownloadAnimationDelegate>
 
-//1-图片
-@property (nonatomic,weak)UIImageView *cellImage;
+
 
 //2-标签
 @property (nonatomic,weak)UILabel *cellLabel;
@@ -47,7 +46,16 @@
     //self.backgroundColor = [UIColor cyanColor];
     
     //1-图片
-    UIImageView *cellImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"game replay"]];
+    
+    //图片资源
+    UIImage *imageOfCell = [UIImage imageNamed:@"Acoustic"];
+    
+    self.imageOfCell = imageOfCell;
+    
+    UIImageView *cellImage = [[UIImageView alloc] initWithImage:imageOfCell];
+    
+    self.cellImage = cellImage;
+    
     
     [self.contentView addSubview:cellImage];
     
@@ -56,6 +64,8 @@
         make.leading.equalTo(self.contentView).offset(30);
         
         make.centerY.equalTo(self.contentView.mas_centerY);
+        
+        make.width.height.equalTo(@80);
     }];
     
     
@@ -80,7 +90,7 @@
     
     //3-下载的动画View
     /*
-    JSDownloadView *downLoadView = [[JSDownloadView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    JSDownloadView *downLoadView = [[JSDownloadView alloc] initWithFrame:CGRectMake(self.contentView.frame.size.width - 50, self.contentView.frame.size.height/2 - 25, 40, 40)];
     
     self.downLoadView = downLoadView;
     
@@ -89,13 +99,6 @@
     downLoadView.delegate = self;
     
     [self.contentView addSubview:downLoadView];
-    
-    [downLoadView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.centerY.equalTo(self.contentView.mas_centerY);
-        make.trailing.equalTo(self.contentView.mas_trailing).offset(-70);
-        //make.height.width.equalTo(@100);
-    }];
     */
 }
 

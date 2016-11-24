@@ -11,8 +11,7 @@
 
 @interface ContentView()
 
-//1-图片
-@property (nonatomic,weak)UIImageView *cellImage;
+
 
 //2-标签
 @property (nonatomic,weak)UILabel *cellLabel;
@@ -20,6 +19,8 @@
 //3-返回标签
 @property (nonatomic,weak)UIButton *backButton;
 
+//从外界获取的背景图片
+@property (nonatomic,strong)UIImage *imageOfCell;
 
 
 @end
@@ -27,15 +28,20 @@
 
 @implementation ContentView
 
-- (instancetype)initWithFrame:(CGRect)frame dataStr:(NSString *)strData collor:(UIColor *)collor
+- (instancetype)initWithFrame:(CGRect)frame dataStr:(NSString *)strData andImage:(UIImage *)imageOfCell
 {
     self = [super initWithFrame:frame];
     
     if (self)
     {
-        self.backgroundColor = collor;
-        
         self.labelStr = strData;
+        
+        self.imageOfCell = imageOfCell;
+        
+        
+        //UIColor *bgColor = [UIColor colorWithPatternImage: imageOfCell];
+        //[self setBackgroundColor:bgColor];
+        
         
         //设计Ui布局
         [self setUpUI];
@@ -46,25 +52,25 @@
 }
 -(void)setUpUI
 {
-    //1-图片
-    UIImageView *cellImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"game replay"]];
+    //1-背景图片
+    UIImageView *cellImage = [[UIImageView alloc] initWithImage:_imageOfCell];
     
     [self addSubview:cellImage];
     
     [cellImage mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.leading.equalTo(self).offset(30);
+        make.leading.top.trailing.bottom.equalTo(self).offset(0);
         
-        make.centerY.equalTo(self.mas_centerY);
     }];
-    
-    
     
     
     //2-label
     UILabel *cellLabel = [[UILabel alloc] init];
     
     self.cellLabel = cellLabel;
+    
+    //cellLabel.backgroundColor = [UIColor whiteColor];
+    [cellLabel setTextColor:[UIColor whiteColor]];
     
     [cellLabel setTextAlignment:NSTextAlignmentCenter];
     
@@ -76,9 +82,9 @@
     
     [cellLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         
-        make.centerY.equalTo(self.mas_centerY);
+        make.centerX.equalTo(self.mas_centerX);
         
-        make.leading.equalTo(cellImage.mas_trailing).offset(20);
+        make.top.equalTo(self.mas_top).offset(20);
         
     }];
     

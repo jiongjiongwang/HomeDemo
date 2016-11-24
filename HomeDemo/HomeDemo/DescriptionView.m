@@ -40,6 +40,7 @@
     
     self.backgroundColor = [UIColor whiteColor];
     
+    
     //添加一个label到上面
     UILabel *descripLabel = [[UILabel alloc] init];
     

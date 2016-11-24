@@ -345,13 +345,20 @@ static NSString *identify = @"homeTableCell";
     
     //取当前cell的y轴上的坐标
     CGRect rect = [cell convertRect:cell.bounds toView:nil];
+    
     CGFloat y = rect.origin.y;
     
-    DetailView *detailView = [[DetailView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) dataStr:strData index:indexPath.row andCellColor:cell.backgroundColor];
+    //取cell当前上的图片
+    UIImage *imageOfCell = cell.imageOfCell;
+    
+    
+    DetailView *detailView = [[DetailView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) dataStr:strData index:indexPath.row andCellImage:imageOfCell];
     
     self.detailView = detailView;
     
     detailView.offsetY = y;
+    
+    detailView.animationTrans = cell.cellImage.transform;
     
     
     //NSLog(@"[[[self.tableView superview] superview] superview] = %@",[[[[self.tableView superview] superview] superview] superview]);
@@ -394,7 +401,7 @@ static NSString *identify = @"homeTableCell";
 {
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 55)];
     
-    headView.backgroundColor = [UIColor redColor];
+    headView.backgroundColor = [UIColor whiteColor];
     
     self.tableView.tableHeaderView = headView;
     

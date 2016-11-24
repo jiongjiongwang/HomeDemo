@@ -13,5 +13,11 @@
 //从外界获取label的标识
 @property (nonatomic,copy)NSString *labelStr;
 
+//cell上的图片
+@property (nonatomic,strong)UIImage *imageOfCell;
+
+//1-图片
+@property (nonatomic,weak)UIImageView *cellImage;
+
 
 @end

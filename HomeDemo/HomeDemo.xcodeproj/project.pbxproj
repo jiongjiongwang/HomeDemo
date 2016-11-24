@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE4051391DE6860200C39F97 /* splash.gif in Resources */ = {isa = PBXBuildFile; fileRef = FE4051381DE6860200C39F97 /* splash.gif */; };
 		FE4D27EB1DE534C5003FD19D /* DescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4D27EA1DE534C5003FD19D /* DescriptionView.m */; };
 		FE574FAD1DE444D9005599BA /* DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE574FAC1DE444D9005599BA /* DetailView.m */; };
 		FE574FB01DE44961005599BA /* ContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = FE574FAF1DE44961005599BA /* ContentView.m */; };
@@ -60,6 +61,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FE4051381DE6860200C39F97 /* splash.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = splash.gif; sourceTree = "<group>"; };
 		FE4D27E91DE534C5003FD19D /* DescriptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionView.h; sourceTree = "<group>"; };
 		FE4D27EA1DE534C5003FD19D /* DescriptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionView.m; sourceTree = "<group>"; };
 		FE574FAB1DE444D9005599BA /* DetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailView.h; sourceTree = "<group>"; };
@@ -157,6 +159,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FE4051371DE685E800C39F97 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				FE4051381DE6860200C39F97 /* splash.gif */,
+			);
+			name = Resource;
+			sourceTree = "<group>";
+		};
 		FE75E9E61DDC21A80019ECE4 = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +191,7 @@
 		FE75E9F11DDC21A80019ECE4 /* HomeDemo */ = {
 			isa = PBXGroup;
 			children = (
+				FE4051371DE685E800C39F97 /* Resource */,
 				FE75EA4C1DDC2B2D0019ECE4 /* Classes */,
 				FE75EA251DDC29560019ECE4 /* Library */,
 				FE75E9F51DDC21A80019ECE4 /* AppDelegate.h */,
@@ -507,6 +518,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE9010DD1DE5603200927CD2 /* LICENSE in Resources */,
+				FE4051391DE6860200C39F97 /* splash.gif in Resources */,
 				FE75E9FF1DDC21A80019ECE4 /* Assets.xcassets in Resources */,
 				FE75EA411DDC29720019ECE4 /* Info.plist in Resources */,
 			);
